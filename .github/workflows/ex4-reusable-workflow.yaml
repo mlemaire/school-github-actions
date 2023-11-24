@@ -4,7 +4,7 @@ on:
     inputs:
       node_version:
         required: true
-        type: number
+        type: string
 
 jobs:
   run-npm-test:
@@ -15,7 +15,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
+          node-version: ${{ inputs.node_version }}
       - name: run test
         shell: bash
         run: |
