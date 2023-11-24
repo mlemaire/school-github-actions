@@ -1,0 +1,10 @@
+name: Reusable Workflow user
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docker-images:
+    uses: uses: ./.github/workflows/ex4-reusable-workflow.yml
+    with:
+      node_version: 17
