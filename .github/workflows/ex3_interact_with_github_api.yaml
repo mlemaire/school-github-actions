@@ -1,0 +1,26 @@
+name: interact with Github API
+on:
+  pull_request:
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: githubSha
+        id: short_sha
+        run: echo "SHA_SHORT=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+      - name: curl
+        env:
+          TOKEN_GIT: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/mlemaire/school-github-actions/issues \
+          --header "authorization: Bearer $TOKEN_GIT" \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ steps.short_sha.outputs.sha_short }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ steps.short_sha.outputs.sha_short }}_."
+            }' \
+          --fail
