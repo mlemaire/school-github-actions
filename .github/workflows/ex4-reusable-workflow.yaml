@@ -1,5 +1,5 @@
 name: reusable workflow
-on: 
+on:
   workflow_call:
     inputs:
       node_version:
@@ -10,17 +10,15 @@ jobs:
   run-npm-test:
     runs-on: ubuntu-latest
     steps:
-        - name: checkout
-          uses: actions/checkout@v3
-        - name : setup node
-          uses: actions/setup-node@v3
-          with:
-            node-version: 'lts/*'
-        - name: run test
-          shell: bash
-          run: |
-            node -v
-            npm install
-            npm test
-
-name: Create and Publish Docker Image
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+      - name: run test
+        shell: bash
+        run: |
+          node -v
+          npm install
+          npm test
