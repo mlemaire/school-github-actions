@@ -1,6 +1,6 @@
 name: Switch Node version
 on:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   run-npm-test:
@@ -9,11 +9,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup node
-        env:
-          NODE_VERSION: 14
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ vars.NODE_VERSION }}
       - name: check node version
         run: node -v
       - name: run test
